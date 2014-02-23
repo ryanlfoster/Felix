@@ -21,8 +21,8 @@ It's *really* easy.
 
 I can't wait for you to make me pretty!
 
-- [Theming 101](/felix/docs/themes)
-- [Theme reference](/felix/docs/theme-reference)
+- [Theming 101](/docs/themes)
+- [Theme reference](/docs/theme-reference)
 
 ---
 
@@ -30,4 +30,4 @@ I can't wait for you to make me pretty!
 
 Extending my core functionality? Please do!
 
-[Plugins 101](/felix/docs/plugins)
+[Plugins 101](/docs/plugins)

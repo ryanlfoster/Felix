@@ -34,7 +34,7 @@ There are no required parameters, but the only fixed parameter is `Template` whi
 
 ## 2. About theme files {#theme-files}
 
-The theme files is where *your* magic happens. A theme is a bunch of HTML files and all of your assets like styles and scripts in the `felix/themes` directory. For theming I've used the Twig templating engine. You can use all of Twig's syntax as defined at [Twig for Template Designers](http://twig.sensiolabs.org/doc/templates.html).
+The theme files is where *your* magic happens. A theme is a bunch of HTML files and all of your assets like styles and scripts in the `themes` directory. For theming I've used the Twig templating engine. You can use all of Twig's syntax as defined at [Twig for Template Designers](http://twig.sensiolabs.org/doc/templates.html).
 
 Just create a directory that resembles your theme name, and start working your magic. Remember, I use `index.html` as default template.
 

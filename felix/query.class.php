@@ -15,7 +15,9 @@ class Query {
 		$url = parse_url(URI_ROOT);
 
 		// Lets get rid of the root path, if it's present
-		$path = substr($_SERVER['REQUEST_URI'], strlen($url['path']));
+		if(!empty($url['path'])) $path = substr($_SERVER['REQUEST_URI'], strlen($url['path']));
+		else $path = '';
+
 		$this->path = trim($path, '/');
 
 		if(empty($this->path)) {
