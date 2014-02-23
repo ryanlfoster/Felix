@@ -1,0 +1,12 @@
+{% include 'header.html' %}
+
+<h1>{{ post.title }}</h1>
+{{ post.content }}
+
+<ul>
+	{% for post in get_posts({ dir: 'posts' }) %}
+	<li><a href="{{ post.url }}">{{ post.title }}</a></li>
+	{% endfor %}
+</ul>
+
+{% include 'footer.html' %}

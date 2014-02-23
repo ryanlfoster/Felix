@@ -1,0 +1,189 @@
+html, body {
+	color: #444;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 100%;
+	line-height: 1.6;
+	padding-bottom: 5em;
+}
+
+.wrapper {
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+}
+
+/********************************
+ Grid
+********************************/
+
+.row { margin-left: -2em; }
+.row:after {
+	clear: both;
+	content: '';
+	display: block;
+}
+
+.column-2 .column { width: calc(50% - 2em); }
+.column-3 .column { width: calc(33.33% - 2em); }
+
+.column {
+	float: left;
+	margin-left: 2em;
+}
+
+/********************************
+ Navigation
+********************************/
+
+nav {
+	background-color: #377bb3;
+	border-bottom: 1px dashed #3372a6;
+	overflow: hidden;
+}
+
+nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav ul:after {
+	clear: both;
+	content: '';
+	display: block;
+}
+
+nav ul li { float: left; }
+
+nav ul li a {
+	color: #fff;
+	display: block;
+	padding: 1.5em 2em;
+}
+
+nav ul li img {
+	display: block;
+	height: 3.4em;
+	margin: 0;
+	padding: 0.5em;
+}
+
+nav ul li a:hover {
+	background-color: #2f6999;
+}
+
+/********************************
+ Bits 'n pieces
+********************************/
+
+.hero {
+	background-color: #377bb3;
+	font-family: 'Lato', sans-serif;
+	font-size: 200%;
+	line-height: 1.2;
+	overflow: hidden;
+	padding: 3em 0;
+}
+
+.hero strong {
+	font-weight: 700;
+}
+
+.hero h1, .hero h2,
+.hero h3, .hero h4,
+.hero h5, .hero h6 {
+	color: #fff;
+	font-weight: 100;
+	margin: 0;
+}
+
+.features {
+	border-bottom: 1px dashed #ccc;
+	padding-bottom: 2em;
+	margin-bottom: 2em;
+}
+
+.template-plugins .item {
+	background-color: #377bb3;
+	color: #fff;
+	display: block;
+	height: 10em;
+	padding: 2em;
+	text-decoration: none;
+}
+
+.template-plugins .item:hover {
+	background-color: #2f6999;
+}
+
+.template-plugins .item h2,
+.template-plugins .item p {
+	color: #fff;
+	margin: 0;
+}
+
+footer {
+	background-color: #377bb3;
+	bottom: 0;
+	color: #fff;
+	left: 0;
+	padding: 1em 0;
+	position: fixed;
+	right: 0;
+}
+
+footer small { display: block; }
+
+footer a {
+	color: #fff;
+	margin-bottom: 1px;
+}
+
+footer a:hover {
+	border-bottom: 1px solid #fff;
+}
+
+.primary a {
+	border-bottom: 1px solid #377bb3;
+	color: #377bb3;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.primary a:hover {
+	border-bottom: 0;
+	margin-bottom: 1px;
+}
+
+/********************************
+ Random tags
+********************************/
+
+h1, h2, h3, h4, h5, h6 {
+	color: #000;
+	font-family: 'Lato', sans-serif;
+	font-weight: 700;
+}
+
+h1 strong, h2 strong,
+h3 strong, h4 strong,
+h5 strong, h6 strong { font-weight: 700; }
+
+code, pre {
+	background-color: #222;
+	color: #fff;
+}
+
+code { padding: 0.125em 0.5em; }
+pre { padding: 1em; }
+pre code { padding: 0; }
+
+hr {
+	border: 0;
+	border-bottom: 1px dashed #ccc;
+	margin: 3em 0;
+}
+
+a { text-decoration: none; }
+
+ul { padding-left: 1.2em; }

@@ -1,0 +1,53 @@
+{% include 'header.html' %}
+
+<div class="hero">
+	<div class="wrapper">
+		{{ post.content }}
+	</div>
+</div>
+
+<section class="primary">
+	<div class="wrapper features">
+		<h2>Well, what can I say? I am...</h2>
+
+		<div class="wrapper">
+			<div class="row column-2">
+				{% set features = get_post('features-left') %}
+
+				<div class="column">
+					{{ features.content }}
+				</div>
+
+				{% set features = get_post('features-right') %}
+
+				<div class="column">
+					{{ features.content }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="wrapper">
+		<div class="row column-3">
+			{% set post = get_post('index-developers') %}
+			<div class="column">
+				<h3>{{ post.title }}</h3>
+				{{ post.content }}
+			</div>
+
+			{% set post = get_post('index-designers') %}
+			<div class="column">
+				<h3>{{ post.title }}</h3>
+				{{ post.content }}
+			</div>
+
+			{% set post = get_post('index-users') %}
+			<div class="column">
+				<h3>{{ post.title }}</h3>
+				{{ post.content }}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% include 'footer.html' %}

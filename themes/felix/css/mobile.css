@@ -1,0 +1,15 @@
+@media only screen and (max-width: 960px) {
+	.wrapper {
+		padding-left: 1em;
+		padding-right: 1em;
+		width: auto;
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	.column-2 .column,
+	.column-3 .column {
+		float: none;
+		width: auto;
+	}
+}
