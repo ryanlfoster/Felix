@@ -68,7 +68,7 @@ class Post {
 
 	public function format() {
 		// Prefix absolute URL's
-		$this->content = preg_replace('/\[(.+?)\]\s?\(\/?(.+?)\)/', '[$1](' . URI_ROOT . '/$2)', $this->content);
+		$this->content = preg_replace('/\[(.+?)\]\s?\((?![a-z]+:\/\/)(.+?)\)/', '[$1](' . URI_ROOT . '/$2)', $this->content);
 		$this->content = Markdown($this->content);
 	}
 

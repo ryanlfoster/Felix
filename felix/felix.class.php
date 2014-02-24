@@ -94,7 +94,7 @@ class Felix {
 				array_push($posts, $pre);
 			}
 		} else {
-			self::error('Can\'t read directory: ' . DIR_CONTENT . '/' . $dir);
+			$this->error('Can\'t read directory: ' . DIR_CONTENT . '/' . $dir);
 		}
 
 		return $posts;
@@ -165,26 +165,26 @@ class Felix {
 	}
 
 	private function loadPlugins() {
-		$dh = opendir(DIR_PLUGINS);
+		if(is_dir(DIR_PLUGINS) && $dh = opendir(DIR_PLUGINS)) {
+			while(($entry = readdir($dh)) !== false) {
+				if($entry === '.' || $entry === '..') continue;
 
-		while($dh && ($entry = readdir($dh)) !== false) {
-			if($entry === '.' || $entry === '..') continue;
+				$apath = DIR_PLUGINS . '/' . $entry;
+				$is_dir = is_dir($apath);
 
-			$apath = DIR_PLUGINS . '/' . $entry;
-			$is_dir = is_dir($apath);
+				if(!$is_dir) $entry = substr($entry, 0, strpos($entry, '.'));
 
-			if(!$is_dir) $entry = substr($entry, 0, strpos($entry, '.'));
+				$classname = preg_replace('/[^0-9a-z]/i', ' ', strtolower($entry));
+				$classname = str_replace(' ', '', ucwords($classname));
 
-			$classname = preg_replace('/[^0-9a-z]/i', ' ', strtolower($entry));
-			$classname = str_replace(' ', '', ucwords($classname));
+				if($is_dir) {
+					$entry .= '/' . $entry;
+					$apath .= '/' . $entry;
+				}
 
-			if($is_dir) {
-				$entry .= '/' . $entry;
-				$apath .= '/' . $entry;
+				if(file_exists($apath)) require_once $apath;
+				if(class_exists($classname)) $this->plugins[$entry] = new $classname;
 			}
-
-			if(file_exists($apath)) require_once $apath;
-			if(class_exists($classname)) $this->plugins[$entry] = new $classname;
 		}
 
 		$this->runHook('plugin_init');
@@ -204,12 +204,12 @@ class Felix {
 			echo $template->render($this->content);
 			$this->runHook('post_render');
 		} catch(Twig_Error $e) {
-			self::error($e->getMessage());
+			$this->error($e->getMessage());
 		}
 	}
 
 	/* Hooking */
-	private function runHook($hook, $args = array()) {
+	public function runHook($hook, $args = array()) {
 		$returns = array();
 
 		foreach($this->plugins as $plugin) {
@@ -223,16 +223,18 @@ class Felix {
 	}
 
 	/* Misc */
-	public static function initialize() {
-		return new Felix();
-	}
-
-	public static function error($msg) {
+	public function error($msg) {
 		$responses = $this->runHook('error');
 
 		if(!in_array(false, $responses)) {
 			if(!OPT_DEBUG) return;
 			throw new Exception($msg);
 		}
+	}
+
+	/* Static */
+
+	public static function initialize() {
+		return new Felix();
 	}
 }
