@@ -6,9 +6,14 @@ $files = array('.htaccess', 'config.php');
 $dir_current = dirname(__FILE__);
 $dir_install = $dir_current . '/install';
 
-// Everything seems okay
-if(is_dir($dir_install) && is_writable($dir_install)) {
-	if(is_writable($dir_current)) {
+if(!is_dir($dir_install)) {
+	die('Both your <code>config.php</code> and <code>install</code> directory seem to be missing. You may want to reinstall Felix entirely.');
+} else if(!is_writable($dir_install)) {
+	die('Please add writing permissions to the <code>install</code> directory. It will be deleted after completion.');
+} else {
+	if(!is_writable($dir_current)) {
+		die('Please add writing permissions to the root directory. You can change it back when no messages pop up.');
+	} else {
 		$path_root = $_SERVER['REQUEST_URI'];
 		if(substr($path_root, strlen($path_root) - 1) !== '/') $path_root .= '/';
 
@@ -45,18 +50,12 @@ if(is_dir($dir_install) && is_writable($dir_install)) {
 
 			// Save file to new location
 			file_put_contents($newfile, $content);
-			unlink($oldfile);
+			@unlink($oldfile);
 		}
 
 		// Delete install directory
-		rmdir($dir_install);
-	} else {
-		die('Please add writing permissions to the root directory. You can change it back after the installation.');
+		@rmdir($dir_install);
 	}
-} else if(is_dir($dir_install)) {
-	die('Either your config.php or installation directory has gone missing. You may want to reinstall Felix entirely.');
-} else if(is_writable($dir_install)) {
-	die('Please add writing permissions to the <code>/install</code> directory. The directory will be deleted after completion.');
 }
 
 // Goodbye world!
