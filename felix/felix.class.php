@@ -21,7 +21,7 @@ class Felix {
 	}
 
 	/* Predefined hooks */
-	public function getPosts($opt) {
+	public function getPosts($opt = array()) {
 		// Overwrite default settings
 		$settings = array_merge(array(
 			'dir'       => '.',
@@ -31,7 +31,8 @@ class Felix {
 			'offset'    => 0,
 			'order'     => 'desc',
 			'orderby'   => 'date',
-			'ordertype' => 'date'
+			'ordertype' => 'date',
+			'recursive' => false
 		), $opt);
 
 		$settings['order'] = strtolower($settings['order']);
@@ -39,7 +40,7 @@ class Felix {
 		$posts = array();
 
 		// Index directory
-		$files = $this->indexPosts($settings['dir']);
+		$files = $this->indexPosts($settings['dir'], $settings['recursive']);
 
 		// Iterate through posts
 		foreach($files as $post) {
@@ -47,7 +48,7 @@ class Felix {
 			if(empty($post) || in_array($post, $settings['exclude'])) continue;
 
 			// Add the post to the list
-			array_push($posts, $this->getPost($settings['dir'] . '/' . $post, $settings['nobody']));
+			array_push($posts, $this->getPost($post, $settings['nobody']));
 		}
 
 		// Create a sort instance
@@ -76,7 +77,10 @@ class Felix {
 		return $post;
 	}
 
-	private function indexPosts($dir) {
+	private function indexPosts($dir, $recursive = false) {
+		$dir = trim($dir, '/');
+		if($dir === '.') $dir = null;
+
 		// Open directory
 		$dh = @opendir(DIR_CONTENT . '/' . $dir);
 		$posts = array();
@@ -84,13 +88,23 @@ class Felix {
 		if($dh) {
 			// Iterate through directory entries
 			while(($entry = readdir($dh)) !== false) {
-				$len = strlen($entry);
+				if($entry === '.' || $entry === '..') continue;
 
-				// Get before and after .md extension
-				$pre = substr($entry, 0, $len - 3);
-				$post = substr($entry, $len - 2);
+				// Get absolute file
+				$abs = ltrim($dir . '/' . $entry, '/');
 
-				if($post !== 'md') continue;
+				// Is entry a dir and should I scan it?
+				if($recursive && is_dir(DIR_CONTENT . '/' . $abs)) {
+					$posts = array_merge($posts, $this->indexPosts($abs));
+					continue;
+				}
+
+				// Cut last three characters off
+				$pre = substr($abs, 0, strlen($abs) - 3);
+				$post = substr($abs, -3);
+
+				// Does last three chars look like an Markdown extension?
+				if($post !== '.md') continue;
 				array_push($posts, $pre);
 			}
 		} else {

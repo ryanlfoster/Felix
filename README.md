@@ -7,6 +7,11 @@ For more information and documentation, go to [timseverien.nl/projects/felix](ht
 
 ## Changelog
 
+### 0.3.1
+- Added 'recursive' option to the `get_posts()` function
+- `get_posts()` options argument is now optional entirely
+- Deleted `archive.html` from theme because it's not used
+
 ### 0.3
 - Fixed link prefixer (no pun intended)
 - More accurate errors in `install.php`
